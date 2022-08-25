@@ -1,0 +1,13 @@
+app:
+  es-indexes:
+    person: person
+spring:
+  elasticsearch:
+    uris: localhost:9200
+    username: ''
+    password: ''
+logging:
+  level:
+#    org.elasticsearch: debug
+#    org.apache.http: debug
+    tracer: trace

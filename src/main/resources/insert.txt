@@ -1,0 +1,19 @@
+PUT person/_doc/one-hobby
+{
+  "hobbies": "one"
+}
+
+PUT person/_doc/two-hobbies
+{
+  "hobbies": ["one", "two"]
+}
+
+PUT person/_doc/one-child
+{
+  "children": {"name": "name1"}
+}
+
+PUT person/_doc/two-children
+{
+  "children": [{"name": "name1"}, {"name": "name2"}]
+}

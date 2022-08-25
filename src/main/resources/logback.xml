@@ -1,0 +1,47 @@
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <property name="logbase" value="logs"/>
+
+    <appender name="NORMAL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/log</file>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${logbase}/log.%d{yyyy-MM-dd}.%i</fileNamePattern>
+            <maxHistory>15</maxHistory>
+            <maxFileSize>2GB</maxFileSize>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{80} %L - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ES_REQ_RES_TRACER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/es-trace</file>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${logbase}/es-trace.%d{yyyy-MM-dd}.%i</fileNamePattern>
+            <maxHistory>3</maxHistory>
+            <maxFileSize>1GB</maxFileSize>
+            <totalSizeCap>5GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{80} %L - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    # to show es request and response details
+    <logger name="tracer" additivity="false">
+        <appender-ref ref="ES_REQ_RES_TRACER" />
+    </logger>
+
+    <root level="info">
+        <appender-ref ref="NORMAL"/>
+        <appender-ref ref="stdout"/>
+    </root>
+
+</configuration>
